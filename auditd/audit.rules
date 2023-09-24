@@ -712,12 +712,12 @@
 ## Disable these rules if they create too many events in your environment
 
 ## Common Shells
-#-w /bin/bash -p x -k susp_shell
-#-w /bin/dash -p x -k susp_shell
-#-w /bin/busybox -p x -k susp_shell
-#-w /bin/zsh -p x -k susp_shell
-#-w /bin/sh -p x -k susp_shell
-#-w /bin/ksh -p x -k susp_shell
+-w /bin/bash -p x -k susp_shell
+-w /bin/dash -p x -k susp_shell
+-w /bin/busybox -p x -k susp_shell
+-w /bin/zsh -p x -k susp_shell
+-w /bin/sh -p x -k susp_shell
+-w /bin/ksh -p x -k susp_shell
 
 ## Root command executions
 -a always,exit -F arch=b64 -F euid=0 -F auid>=1000 -F auid!=-1 -S execve -k rootcmd
