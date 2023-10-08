@@ -49,7 +49,7 @@
 <group name="njrat,">
 
   <!-- Rogue file creation in Temp folder-->
-  <rule id="100201" level="15">
+  <rule id="101201" level="15">
     <if_sid>92213</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)[c-z]:(\\\\Users\\\\.+\\\\)</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[c-z]:\\\\Users\\\\.+\\\\AppData\\\\Local\\\\Temp\\\\.+\.exe</field>
@@ -60,7 +60,7 @@
   </rule>
 
   <!-- New process started from Temp folder-->
-  <rule id="100202" level="12">
+  <rule id="101202" level="12">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)\\\\AppData\\\\Local\\\\Temp\\\\.+\.exe</field>
     <field name="win.eventdata.parentImage" type="pcre2">(?i)[c-z]:(\\\\Users\\\\.+\\\\)</field>
@@ -72,7 +72,7 @@
   </rule>
 
   <!-- Network shell detected-->
-  <rule id="100203" level="15">
+  <rule id="101203" level="15">
     <if_sid>92042</if_sid>
     <field name="win.eventdata.commandLine" type="pcre2">netsh firewall add allowedprogram</field>
     <field name="win.eventdata.parentImage" type="pcre2">(?i)[c-z]:\\\\Users\\\\.+\\\\AppData\\\\Local\\\\Temp\\\\.+\.exe</field>
@@ -83,7 +83,7 @@
   </rule>
 
   <!-- Persistence detection -->
-  <rule id="100204" level="15" ignore="600">
+  <rule id="101204" level="15" ignore="600">
     <if_sid>92300</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)[c-z]:\\\\Users\\\\.+\\\\AppData\\\\Local\\\\Temp\\\\.+\.exe</field>
     <field name="win.eventdata.eventType" type="pcre2">(?i)SetValue</field>
@@ -94,7 +94,7 @@
     </mitre>
   </rule>
 
-  <rule id="100205" level="15" ignore="600">
+  <rule id="101205" level="15" ignore="600">
     <if_sid>92300</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)[c-z]:\\\\Users\\\\.+\\\\AppData\\\\Local\\\\Temp\\\\.+\.exe</field>
     <field name="win.eventdata.eventType" type="pcre2">(?i)SetValue</field>
@@ -105,7 +105,7 @@
     </mitre>
   </rule>
 
-  <rule id="100206" level="12">
+  <rule id="101206" level="12">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)\\\\AppData\\\\Local\\\\Temp\\\\.+\.exe</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\\\Programs\\\\Startup\\\\.+\.exe</field>
@@ -116,7 +116,7 @@
   </rule>
 
   <!-- Rogue file creation in root directory-->
-  <rule id="100207" level="12">
+  <rule id="101207" level="12">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)\\\\AppData\\\\Local\\\\Temp\\\\.+\.exe</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)C:\\\\[A-Za-z]+\.[A-Za-z]+</field>
@@ -127,7 +127,7 @@
   </rule>
 
   <!-- Suspicious network communications -->
-  <rule id="100208" level="12" ignore="600">
+  <rule id="101208" level="12" ignore="600">
     <if_sid>61650</if_sid>
     <field name="win.system.eventID">^22$</field>
     <field name="win.eventdata.image" type="pcre2">(?i)\\\\AppData\\\\Local\\\\Temp\\\\.+\.exe</field>
@@ -215,7 +215,7 @@
 
 <group name="crosslock,">
 <!-- Detects when CrossLock ransomware creates ransom notes. -->
-  <rule id="100201" level="12" timeframe="50" frequency="2">
+  <rule id="102201" level="12" timeframe="50" frequency="2">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[C-Z]:.*.CrossLock.*---.txt</field>
     <description>The file $(win.eventdata.targetFilename) has been created in multiple directories. CrossLock ransomware detected.</description>
@@ -225,7 +225,7 @@
   </rule>
 
 <!-- Detects when CrossLock deletes the oldest system state backup on the system. -->
-  <rule id="100202" level="12">
+  <rule id="102202" level="12">
      <if_sid>92032</if_sid>
      <field name="win.eventdata.CommandLine" type="pcre2">(?i)wbadmin\s\sDELETE\sSYSTEMSTATEBACKUP\s-deleteOldest</field>
      <description>Suspicious command to delete the oldest system state backup executed. Possible ransomware activity.</description>
@@ -235,7 +235,7 @@
   </rule>
 
 <!-- Detects when CrossLock deletes the system state backup on the system. -->
-  <rule id="100203" level="12">
+  <rule id="102203" level="12">
      <if_sid>92032</if_sid>
      <field name="win.eventdata.CommandLine" type="pcre2">(?i)wbadmin\s\sDELETE\sSYSTEMSTATEBACKUP</field>
      <description>Suspicious command to delete system state backup executed. Possible ransomware activity.</description>
@@ -244,7 +244,7 @@
      </mitre>
   </rule>
 
-  <rule id="100204" level="12">
+  <rule id="102204" level="12">
      <if_sid>92032</if_sid>
      <field name="win.eventdata.CommandLine" type="pcre2">(?i)wevtutil\s\scl\sapplication</field>
      <description>Windows application event deleted. Possible ransomware activity detected.</description>
@@ -465,13 +465,13 @@
 
 <group name="local,cobalt_strike,beaconing,">
 
-  <rule id="100010" level="0">
+  <rule id="100410" level="0">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.originalFileName" type="pcre2">^sc.exe$</field>
     <description>The service control manager tool was used.</description>
   </rule>
 
-  <rule id="100011" level="3">
+  <rule id="100411" level="3">
     <if_sid>100010</if_sid>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)delete</field>
     <description>A service was deleted. Possible clean up of malicious activity.</description>
